@@ -2,6 +2,10 @@
 
 AI-powered startup opportunity discovery and research tool.
 
+🚀 Live Demo
+
+https://startup-finder-one.vercel.app/
+
 ## Features
 
 * Discover startup opportunities from keywords
@@ -20,7 +24,7 @@ AI-powered startup opportunity discovery and research tool.
 ## Getting Started
 
 1. Clone the repository
-2. Open `[index.html](https://startup-finder-one.vercel.app/)` in your browser
+2. Open `https://startup-finder-one.vercel.app/` in your browser
 3. Start researching startup opportunities
 
 ## Author
