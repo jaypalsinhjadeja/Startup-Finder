@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startup Intelligence OS - VC-Grade Decision Engine</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- OS Boot Splash Screen -->
+  <div id="bootScreen" class="boot-screen">
+    <div class="boot-logo">
+      <i class="fa-solid fa-brain" style="color: var(--primary); margin-right: 8px;"></i>
+      STARTUP DECISION ENGINE v3.0
+    </div>
+    <div class="boot-terminal" id="bootTerminal">
+      <!-- Boot logs printed dynamically -->
+    </div>
+    <div class="boot-loader">
+      <div id="bootLoaderFill" class="boot-loader-fill"></div>
+    </div>
+    <button id="enterSystemBtn" class="btn btn-primary" style="display: none; margin-top: 24px;">
+      <i class="fa-solid fa-terminal"></i> Enter Decision Shell
+    </button>
+  </div>
+
+  <!-- Main OS Interface -->
+  <div class="os-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">S</div>
+        <div class="brand-text">
+          <h1>STARTUP DECISION</h1>
+          <span>Venture Capital Grade</span>
+        </div>
+      </div>
+      
+      <nav style="flex-grow: 1;">
+        <ul class="nav-links">
+          <li>
+            <div class="nav-item active" id="nav-dashboard" onclick="app.switchView('dashboard')">
+              <i class="fa-solid fa-compass"></i>
+              <span>Discovery Hub</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item" id="nav-research" onclick="app.switchView('research')">
+              <i class="fa-solid fa-flask-vial"></i>
+              <span>Research Lab</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item" id="nav-compare" onclick="app.switchView('compare')">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <span>Compare</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item" id="nav-console" onclick="app.switchView('console')">
+              <i class="fa-solid fa-terminal"></i>
+              <span>Agent Console</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item" id="nav-library" onclick="app.switchView('library')">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Opportunity Library</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-item" id="nav-profile" onclick="app.switchView('profile')">
+              <i class="fa-solid fa-user-gear"></i>
+              <span>Founder Profile</span>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="founder-status">
+          <div class="avatar" id="founderAvatar">F</div>
+          <div class="founder-info">
+            <span class="founder-name" id="profileNameDisplay">Solo Founder</span>
+            <span class="founder-title">Rank: Decision Maker</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="main-workspace">
+      
+      <!-- System Header / Status Bar -->
+      <header class="system-header">
+        <div class="system-status">
+          <div class="status-indicator">
+            <div id="sysDot" class="dot"></div>
+            <span id="sysStatusText">SYS_ONLINE</span>
+          </div>
+          <span style="color: var(--border-glass);">|</span>
+          <span>MEM: 3.1 GB / 8.0 GB</span>
+          <span style="color: var(--border-glass);">|</span>
+          <span id="activeProcessName">PROCESS: IDLE</span>
+        </div>
+        
+        <div class="system-status">
+          <span class="system-clock" id="systemClock">12:38:12</span>
+        </div>
+      </header>
+
+      <!-- View 1: Dashboard / Discovery Hub -->
+      <section id="view-dashboard" class="view-container active">
+        <div class="mb-24">
+          <h2 class="section-title">
+            <i class="fa-solid fa-compass"></i> Market Research Discovery Hub
+          </h2>
+          <p>Enter any market, niche, or keyword. The Research Depth Engine will map the ecosystem, discover pain clusters, analyze competitors, and generate ranked startup opportunities — never a shallow idea.</p>
+        </div>
+
+        <!-- Search Input Console -->
+        <div class="search-container glass-card">
+          <i class="fa-solid fa-flask-vial" style="align-self: center; color: var(--primary); font-size: 1.2rem; margin-left: 8px;"></i>
+          <input type="text" id="ideaSearchInput" class="search-input" placeholder="Enter a market or keyword to research (e.g., YouTube, Email Marketing, Fitness, CRM, SaaS)...">
+          <button class="btn btn-primary" onclick="app.runResearchCycle()">
+            <i class="fa-solid fa-microscope"></i> Begin Deep Research
+          </button>
+        </div>
+
+        <!-- Research-first pipeline indicator -->
+        <div class="research-pipeline-steps glass-card" style="margin-bottom: 24px;">
+          <div class="pipeline-step">
+            <div class="pipeline-step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <span>Keyword</span>
+          </div>
+          <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-icon"><i class="fa-solid fa-globe"></i></div>
+            <span>Ecosystem</span>
+          </div>
+          <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-icon"><i class="fa-solid fa-crosshairs"></i></div>
+            <span>Pain Clusters</span>
+          </div>
+          <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-icon"><i class="fa-solid fa-binoculars"></i></div>
+            <span>Competitors</span>
+          </div>
+          <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <span>Opportunities</span>
+          </div>
+          <div class="pipeline-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-icon"><i class="fa-solid fa-trophy"></i></div>
+            <span>Ranking</span>
+          </div>
+        </div>
+
+        <h3 class="card-title mb-16" style="font-family: var(--font-display); border-bottom: 1px solid var(--border-glass); padding-bottom: 8px;">
+          <i class="fa-solid fa-database" style="color: var(--accent);"></i> Pre-Researched Markets (Click to View Full Research)
+        </h3>
+
+        <!-- Preloaded opportunities cards -->
+        <div class="preseeded-ideas-grid" id="preseededIdeasContainer">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- View 1.5: Research Lab Dashboard -->
+      <section id="view-research" class="view-container">
+        <div class="mb-24" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h2 class="section-title">
+              <i class="fa-solid fa-flask-vial"></i> Research Lab: <span id="researchKeywordTitle">—</span>
+            </h2>
+            <p id="researchEcoLabel" style="margin-top:4px;">Deep market research in progress...</p>
+          </div>
+          <div style="text-align:right;">
+            <div class="research-completeness-badge" id="researchCompletenessBadge">0%</div>
+            <div style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); margin-top:4px;">RESEARCH COMPLETENESS</div>
+          </div>
+        </div>
+
+        <!-- Research Threshold Meters -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-gauge-high" style="color:var(--primary);"></i> Minimum Research Thresholds
+          </h3>
+          <div class="threshold-meters-grid" id="thresholdMetersGrid">
+            <!-- 8 threshold meters populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Research Terminal -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <div class="simulator-header">
+            <span id="researchPhaseHeadline" style="font-family: var(--font-display); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-spinner fa-spin" style="color: var(--accent);"></i> Running Research Pipeline...
+            </span>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span id="researchProgressPercent" style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-dim);">0%</span>
+              <button class="btn btn-danger" onclick="app.cancelSimulation()">
+                <i class="fa-solid fa-circle-stop"></i> Cancel
+              </button>
+            </div>
+          </div>
+          <div class="terminal-log-container" id="researchTerminalLog" style="height:200px;">
+            <!-- Research logs streamed here -->
+          </div>
+        </div>
+
+        <!-- Phase Indicators -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-list-check" style="color:var(--accent);"></i> Research Phases
+          </h3>
+          <div class="research-phases-grid" id="researchPhasesGrid">
+            <!-- 6 phase cards populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Ecosystem Segments -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-globe" style="color:var(--primary);"></i> Ecosystem Segments Discovered
+          </h3>
+          <div class="ecosystem-chips-grid" id="ecosystemChipsGrid">
+            <!-- Segment chips populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Pain Clusters -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-crosshairs" style="color:var(--danger);"></i> Top 25 Pain Clusters
+            <span id="painClusterCount" style="font-size:0.7rem; font-family:var(--font-mono); color:var(--text-dim); margin-left:8px;">0 clusters</span>
+          </h3>
+          <div class="pain-clusters-grid" id="painClustersGrid">
+            <!-- Pain cluster cards populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Competitor Intelligence -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-binoculars" style="color:var(--accent);"></i> Competitor Intelligence Grid
+            <span id="competitorCount" style="font-size:0.7rem; font-family:var(--font-mono); color:var(--text-dim); margin-left:8px;">0 competitors</span>
+          </h3>
+          <div class="competitor-intel-table-wrap" style="overflow-x:auto;">
+            <table class="competitor-intel-table" id="competitorIntelTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Pricing</th>
+                  <th>Strengths</th>
+                  <th>Weaknesses</th>
+                  <th>Sentiment</th>
+                  <th>Reviews</th>
+                </tr>
+              </thead>
+              <tbody id="competitorIntelBody">
+                <!-- Rows populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Market Gaps -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-magnifying-glass-chart" style="color:var(--success);"></i> Market Gaps Identified
+          </h3>
+          <div class="market-gaps-list" id="marketGapsList">
+            <!-- Gap cards populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Action: View Opportunities -->
+        <div style="text-align:center; padding:24px 0;">
+          <button class="btn btn-primary btn-lg" id="viewOpportunitiesBtn" onclick="app.switchView('compare')" style="display:none; padding:14px 40px; font-size:1rem;">
+            <i class="fa-solid fa-trophy"></i> View Ranked Startup Opportunities
+          </button>
+        </div>
+      </section>
+
+      <!-- View 1.75: Opportunity Comparison Matrix -->
+      <section id="view-compare" class="view-container">
+        <div class="mb-24" style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h2 class="section-title">
+              <i class="fa-solid fa-scale-balanced"></i> Opportunity Comparison Matrix
+            </h2>
+            <p>All opportunities ranked across 9 dimensions. Each comes from a different pain cluster. Click any row to open its full report.</p>
+          </div>
+          <button class="btn" onclick="app.switchView('research')" style="white-space:nowrap;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Research
+          </button>
+        </div>
+
+        <!-- Top Picks Cards -->
+        <div class="top-picks-grid" id="topPicksGrid">
+          <!-- 5 top pick cards populated dynamically -->
+        </div>
+
+        <!-- Comparison Matrix Table -->
+        <div class="glass-card" style="margin-top: 24px; overflow-x:auto;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:16px;">
+            <i class="fa-solid fa-table-cells" style="color:var(--primary);"></i> Full Comparison Matrix
+          </h3>
+          <table class="comparison-matrix-table" id="comparisonMatrixTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Startup</th>
+                <th>Model</th>
+                <th>Pain</th>
+                <th>Demand</th>
+                <th>Competition</th>
+                <th>Gap</th>
+                <th>Moat</th>
+                <th>Founder Fit</th>
+                <th>AI Risk</th>
+                <th>Platform Risk</th>
+                <th>Composite</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="comparisonMatrixBody">
+              <!-- Rows populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Data Confidence -->
+        <div class="glass-card" style="margin-top: 24px;">
+          <h3 class="card-title" style="font-size:0.9rem; margin-bottom:12px;">
+            <i class="fa-solid fa-shield-halved" style="color:var(--accent);"></i> Research Quality Metadata
+          </h3>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+            <div>
+              <div style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:4px;">DATA CONFIDENCE</div>
+              <div id="compareDataConfidence" style="font-size:0.85rem;">—</div>
+            </div>
+            <div>
+              <div style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:4px;">RESEARCH COMPLETENESS</div>
+              <div id="compareResearchScore" style="font-size:0.85rem;">—</div>
+            </div>
+            <div>
+              <div style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:4px;">OPPORTUNITIES GENERATED</div>
+              <div id="compareOppCount" style="font-size:0.85rem;">—</div>
+            </div>
+            <div>
+              <div style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); margin-bottom:4px;">PAIN CLUSTERS ANALYZED</div>
+              <div id="comparePainCount" style="font-size:0.85rem;">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export -->
+        <div style="text-align:center; padding:24px 0;">
+          <button class="btn btn-primary" onclick="ui.exportResearchMarkdown()">
+            <i class="fa-solid fa-file-export"></i> Export Full Research Report
+          </button>
+        </div>
+      </section>
+
+      <!-- View 2: Agent Console / Terminal Simulator -->
+      <section id="view-console" class="view-container">
+        <div class="mb-24">
+          <h2 class="section-title">
+            <i class="fa-solid fa-computer"></i> Multi-Agent Processing Console
+          </h2>
+          <p>Watch our 24 specialized Startup Intelligence agents crawl directories, audit platform risks, calculate unit economics, model cohort simulations, and vote on investment verdicts.</p>
+        </div>
+
+        <div class="grid-2-1" style="height: calc(100vh - 220px); min-height: 500px;">
+          <!-- Left: Console logs -->
+          <div class="glass-card simulator-panel">
+            <div class="simulator-header">
+              <span id="simulatorHeadline" style="font-family: var(--font-display); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="color: var(--accent);"></i> Running Pipeline Analysis...
+              </span>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-danger" onclick="app.cancelSimulation()">
+                  <i class="fa-solid fa-circle-stop"></i> Cancel Scan
+                </button>
+              </div>
+            </div>
+            
+            <div class="terminal-log-container" id="terminalLog">
+              <!-- Logs typed here -->
+            </div>
+            
+            <div style="font-size: 0.8rem; color: var(--text-dim); display: flex; justify-content: space-between; font-family: var(--font-mono);">
+              <span>AGENT THREADS ACTIVE: 24</span>
+              <span id="pipelineProgressPercent">Progress: 0%</span>
+            </div>
+          </div>
+
+          <!-- Right: Agents grid status -->
+          <div class="glass-card" style="display: flex; flex-direction: column; overflow-y: auto;">
+            <h3 class="card-title" style="font-size: 1rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px; margin-bottom: 16px;">
+              <i class="fa-solid fa-network-wired"></i> Agent Status Registry
+            </h3>
+            
+            <div class="agents-progress-grid" id="agentsProgressGrid">
+              <!-- Grid filled with 24 agent cards dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 3: Opportunity Library / Report Viewer -->
+      <section id="view-library" class="view-container">
+        <div class="grid-1-2" style="height: calc(100vh - 120px); min-height: 600px; overflow: hidden; align-items: stretch;">
+          
+          <!-- Library Sidebar -->
+          <div class="glass-card" style="display: flex; flex-direction: column; overflow-y: auto; padding: 20px;">
+            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 16px; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px;">
+              <i class="fa-solid fa-box-archive"></i> Audited Opportunities
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;" id="libraryReportsList">
+              <!-- List of available reports will be dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Library Report Panel -->
+          <div class="glass-card" style="display: flex; flex-direction: column; overflow-y: auto; padding: 24px;" id="reportViewerWrapper">
+            <!-- If no report selected -->
+            <div id="noReportSelectedMsg" style="margin: auto; text-align: center; color: var(--text-muted);">
+              <i class="fa-solid fa-file-invoice" style="font-size: 3rem; color: var(--border-glass); margin-bottom: 16px; display: block;"></i>
+              <h3>Select an audited report or run a scan to review deep startup intelligence.</h3>
+            </div>
+            
+            <!-- Report Container -->
+            <div id="reportContentContainer" style="display: none;">
+              <!-- Header Info -->
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border-glass); padding-bottom: 20px; margin-bottom: 24px;">
+                <div>
+                  <h1 id="repStartupName" style="font-family: var(--font-display); font-size: 2.2rem; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Startup Name</h1>
+                  <p id="repExecutiveSummary" style="font-size: 1rem; margin-top: 8px;">Executive summary goes here.</p>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                  <button class="btn btn-primary" onclick="ui.exportMarkdown()">
+                    <i class="fa-solid fa-download"></i> Export Report
+                  </button>
+                </div>
+              </div>
+
+              <!-- Report subtabs (Upgraded) -->
+              <div class="report-tabs">
+                <button class="report-tab active" onclick="ui.switchReportTab('overview', this)">
+                  <i class="fa-solid fa-chart-line"></i> Overview & Scores
+                </button>
+                <button class="report-tab" onclick="ui.switchReportTab('problems', this)">
+                  <i class="fa-solid fa-magnifying-glass-chart"></i> Demand & Gaps
+                </button>
+                <button class="report-tab" onclick="ui.switchReportTab('risks', this)">
+                  <i class="fa-solid fa-skull-crossbones"></i> Risks & Defensibility
+                </button>
+                <button class="report-tab" onclick="ui.switchReportTab('monetization', this)">
+                  <i class="fa-solid fa-dollar-sign"></i> Finance & Economics
+                </button>
+                <button class="report-tab" onclick="ui.switchReportTab('mvp', this)">
+                  <i class="fa-solid fa-box-open"></i> MVP & GTM
+                </button>
+                <button class="report-tab" onclick="ui.switchReportTab('fit', this)">
+                  <i class="fa-solid fa-street-view"></i> Fit & Compliance
+                </button>
+              </div>
+
+              <!-- Report Details Pages -->
+              
+              <!-- Tab 1: Overview & Scores -->
+              <div class="report-section active" id="rep-sec-overview">
+                <div class="grid-2 mb-24">
+                  <div class="glass-card" style="display: flex; align-items: center; justify-content: space-around; background: rgba(255, 255, 255, 0.01);">
+                    <div class="score-circle-container">
+                      <svg class="score-circle-svg">
+                        <circle class="score-circle-bg" cx="70" cy="70" r="60"></circle>
+                        <circle class="score-circle-bar" id="overallScoreCircle" cx="70" cy="70" r="60" stroke="var(--primary)" style="stroke-dashoffset: 377;"></circle>
+                      </svg>
+                      <div class="score-text">
+                        <span class="score-number" id="repOverallScore">80</span>
+                        <span class="score-label">DECISION SCORE</span>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 8px;">VERDICT: <span id="repVerdictText" class="tag-badge tag-success">STRONG OPPORTUNITY</span></h3>
+                      <p style="font-size: 0.85rem; max-width: 250px;" id="repVerdictDescription">This opportunity is highly viable due to robust unmet demand.</p>
+                    </div>
+                  </div>
+
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-chart-radar"></i> Scoring Profile Map</h3>
+                    <div class="radar-chart-container">
+                      <canvas id="radarChartCanvas" width="280" height="280"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Investment Committee Voting widget -->
+                <div class="glass-card mb-24" style="background: rgba(255, 255, 255, 0.01);">
+                  <h3 class="card-title" style="font-size: 1.1rem;"><i class="fa-solid fa-users"></i> Investment Committee Verdict Logs</h3>
+                  <p style="font-size: 0.85rem; margin-bottom: 16px; font-family: var(--font-mono); color: var(--accent);" id="repCommitteeConsensus">Consensus will be written here.</p>
+                  
+                  <div class="grid-3" id="repCommitteeGrid" style="gap: 12px;">
+                    <!-- 6 cards of voters -->
+                  </div>
+                </div>
+
+                <!-- Core Dimension Scores updated to VC standards -->
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                  <h3 class="card-title" style="font-size: 1.1rem;"><i class="fa-solid fa-clipboard-list"></i> Core Decision Metric Scores</h3>
+                  <div class="grid-2">
+                    <div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Opportunity Score (Pain/Demand/Gap)</span><span class="slider-val" id="scoreOpportunityVal">8/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreOpportunityBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Killer Failure Probability Risk</span><span class="slider-val" id="scoreRiskVal">3/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreRiskBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Founder-Market Fit Score</span><span class="slider-val" id="scoreFitVal">8/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreFitBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Moat & Defensibility Score</span><span class="slider-val" id="scoreMoatVal">7/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreMoatBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Monetization & Wallet Score</span><span class="slider-val" id="scoreMonetizationVal">8/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreMonetizationBar"></div></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Distribution & CAC Difficulty</span><span class="slider-val" id="scoreDistributionVal">5/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreDistributionBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Security & Compliance Complexity</span><span class="slider-val" id="scoreComplianceVal">5/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreComplianceBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>COGS & Unit Economics Score</span><span class="slider-val" id="scoreUnitEconomicsVal">9/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreUnitEconomicsBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>AI Replacement Risk Score</span><span class="slider-val" id="scoreAiRiskVal">3/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreAiRiskBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Platform Dependency Risk Score</span><span class="slider-val" id="scorePlatformRiskVal">6/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scorePlatformRiskBar"></div></div>
+                      </div>
+                      <div class="metric-row">
+                        <div class="metric-header"><span>Startup Survival Probability</span><span class="slider-val" id="scoreSurvivalVal">8/10</span></div>
+                        <div class="metric-bar-bg"><div class="metric-bar-fill" id="scoreSurvivalBar"></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 2: Demand & Gaps -->
+              <div class="report-section" id="rep-sec-problems">
+                <div class="mb-24">
+                  <h3 class="card-title"><i class="fa-solid fa-triangle-exclamation" style="color: var(--danger);"></i> Problem Statement</h3>
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01); border-left: 3px solid var(--danger);">
+                    <p style="font-size: 1.05rem; color: #fff; font-weight: 500;" id="repProblemStatement">Problem statement details.</p>
+                  </div>
+                </div>
+
+                <div class="grid-2 mb-24">
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-chart-line"></i> Market Demand Details</h3>
+                    <div style="font-size: 0.9rem; display: flex; flex-direction: column; gap: 12px; height: 100%;">
+                      <div>
+                        <span style="color: var(--text-dim); display:block; font-size: 0.8rem;">Trend Direction:</span>
+                        <span id="repTrendDirection" class="tag-badge tag-primary">UPWARD</span>
+                      </div>
+                      <div>
+                        <span style="color: var(--text-dim); display:block; font-size: 0.8rem;">Market Size Estimate:</span>
+                        <span id="repMarketSize" style="font-weight: 600; font-family: var(--font-mono); color: #fff;">$500M ARR</span>
+                      </div>
+                      <p id="repMarketDemandExplanation">Explanation of search volume.</p>
+                    </div>
+                  </div>
+
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-magnifying-glass"></i> SEO & Search Keywords</h3>
+                    <table class="matrix-table" style="margin-top: 0;">
+                      <thead>
+                        <tr>
+                          <th>Keyword</th>
+                          <th>Monthly Volume</th>
+                          <th>KD Score</th>
+                        </tr>
+                      </thead>
+                      <tbody id="repSeoKeywordsTableBody">
+                        <!-- Populated by JS -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="glass-card mb-24" style="background: rgba(255, 255, 255, 0.01);">
+                  <h3 class="card-title"><i class="fa-solid fa-puzzle-piece" style="color: var(--primary);"></i> Market Gap Report</h3>
+                  <div style="background: rgba(255, 255, 255, 0.01); border-left: 3px solid var(--primary); padding: 12px;">
+                    <p style="font-size: 1rem; color: #fff;" id="repMarketGapReport">Details on gaps identified.</p>
+                  </div>
+                </div>
+
+                <div class="glass-card mb-24" style="background: rgba(255, 255, 255, 0.01);">
+                  <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-table"></i> Competitor Comparison Grid</h3>
+                  <div style="overflow-x: auto;">
+                    <table class="matrix-table" id="repCompetitorsTable">
+                      <thead>
+                        <tr>
+                          <th>Competitor</th>
+                          <th>Pricing</th>
+                          <th>Strengths</th>
+                          <th>Weaknesses & Gaps</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Filled by JS -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                  <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-comments"></i> Forum Evidence Collected</h3>
+                  <div id="repEvidenceList">
+                    <!-- Populated by JS -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 3: Risks & Defensibility (New Tab Layout) -->
+              <div class="report-section" id="rep-sec-risks">
+                <!-- Startup Killer Warnings -->
+                <div class="glass-card mb-24" style="border-left: 4px solid var(--danger);">
+                  <h3 class="card-title" style="color: var(--danger);"><i class="fa-solid fa-skull-crossbones"></i> Fatal Risk Warnings</h3>
+                  <ul class="feature-list" id="repKillerWarnings" style="margin-top: 8px;">
+                    <!-- Loaded dynamically -->
+                  </ul>
+                </div>
+
+                <div class="grid-2 mb-24">
+                  <!-- Killer top 10 reasons -->
+                  <div class="glass-card">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-circle-exclamation" style="color: var(--warning);"></i> Top 10 Failure Vectors</h3>
+                    <ol style="margin-left: 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;" id="repKillerReasons">
+                      <!-- 10 list items -->
+                    </ol>
+                  </div>
+
+                  <!-- Moat & Defensibility Report -->
+                  <div class="glass-card" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                      <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-fort-awesome"></i> Moat Defensibility Rating</h3>
+                      <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+                        <div><span style="color: var(--text-dim);">Survival Rating:</span> <span id="repMoatSurvival" class="tag-badge tag-primary">HIGH</span></div>
+                        <div><span style="color: var(--text-dim);">Moat Score:</span> <strong id="repMoatScoreVal" style="color: #fff;">7/10</strong></div>
+                        <div><span style="color: var(--text-dim);">Defensibility:</span> <strong id="repMoatDefScoreVal" style="color: #fff;">6/10</strong></div>
+                      </div>
+                    </div>
+                    
+                    <div style="font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 6px;">
+                      <p style="margin-bottom: 6px;"><strong>Can OpenAI kill this?</strong></p>
+                      <p id="repMoatOpenai" style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;"></p>
+                      
+                      <p style="margin-bottom: 6px;"><strong>Can Google/Apple kill this?</strong></p>
+                      <p id="repMoatGoogle" style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;"></p>
+
+                      <p style="margin-bottom: 6px;"><strong>Competitor copy speed (30 days)?</strong></p>
+                      <p id="repMoatCompetitor" style="color: var(--text-muted); font-size: 0.8rem;"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid-2">
+                  <!-- AI replacement risks -->
+                  <div class="glass-card">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-robot"></i> AI Replacement Threat</h3>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+                      <div><span style="color: var(--text-dim);">Obsolescence Window:</span> <strong id="repAiObsolescence" style="color: var(--danger);">1-2 Years</strong></div>
+                      <div><span style="color: var(--text-dim);">AI Replacement Risk Score:</span> <span id="repAiRiskScore" class="tag-badge tag-danger">8/10</span></div>
+                      <div><span style="color: var(--text-dim);">Core Model Survival Chance:</span> <strong id="repAiSurvivalProb" style="color: #fff;">40%</strong></div>
+                    </div>
+                  </div>
+
+                  <!-- Platform Dependency -->
+                  <div class="glass-card">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-network-wired"></i> Platform API Dependency</h3>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+                      <div><span style="color: var(--text-dim);">API Fragility:</span> <span id="repPlatformFragility" class="tag-badge tag-warning">High</span></div>
+                      <div><span style="color: var(--text-dim);">Platform Risk Score:</span> <strong id="repPlatformRiskScore" style="color: #fff;">7/10</strong></div>
+                    </div>
+                    <p id="repPlatformDependencyAnalysis" style="font-size: 0.8rem; color: var(--text-muted);"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 4: Finance & Economics (Upgraded) -->
+              <div class="report-section" id="rep-sec-monetization">
+                <div class="grid-2 mb-24">
+                  <!-- Customer Wallet Analysis -->
+                  <div class="glass-card" style="display: flex; flex-direction: column; gap: 12px;">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-wallet"></i> Customer Wallet Audit</h3>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px;">
+                      <div><span style="color: var(--text-dim);">Payment Probability:</span> <strong id="repWalletPayProb" style="color: var(--success);">9/10</strong></div>
+                      <div><span style="color: var(--text-dim);">Budget Availability Score:</span> <strong id="repWalletBudgetVal" style="color: #fff;">8/10</strong></div>
+                    </div>
+                    <p id="repWalletSpendingAnalysis" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;"></p>
+                  </div>
+
+                  <!-- COGS & Unit Economics -->
+                  <div class="glass-card" style="display: flex; flex-direction: column; gap: 12px;">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-percent"></i> Gross Margins & COGS</h3>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px;">
+                      <div><span style="color: var(--text-dim);">Projected Gross Margin:</span> <span id="repCogsMargin" class="tag-badge tag-success">92%</span></div>
+                      <div><span style="color: var(--text-dim);">Unit Economics Score:</span> <strong id="repCogsScoreVal" style="color: #fff;">9/10</strong></div>
+                      <div><span style="color: var(--text-dim);">Profitability Class:</span> <strong id="repCogsProfitability" style="color: var(--primary);">High Potential</strong></div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); margin-top: 4px; border-top: 1px solid var(--border-glass); padding-top: 8px;">
+                      ESTIMATED BILLS:<br>
+                      - API: Medium Volume Payload checks<br>
+                      - Server: Standard database, Oauth memory logs<br>
+                      - GPU: Negligible
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Startup Simulator Cohort Projections -->
+                <div class="glass-card mb-24">
+                  <h3 class="card-title"><i class="fa-solid fa-chart-area"></i> Startup Cohort Simulator (24-Month Projections)</h3>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+                    Calculated by Agent 23 simulating logo churn, CAC expenses, and revenue growth. 
+                    Startup survival probability: <strong id="repSimSurvivalProb" style="color: var(--success);">88%</strong>
+                  </p>
+                  
+                  <div style="overflow-x: auto;">
+                    <table class="matrix-table" style="margin-top: 0;">
+                      <thead>
+                        <tr>
+                          <th>Simulation Case</th>
+                          <th>Growth (MoM)</th>
+                          <th>Monthly Churn</th>
+                          <th>ACQ Cost (CAC)</th>
+                          <th>Month 24 ARR</th>
+                          <th>Burn Rate</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr id="repSimBestRow">
+                          <td style="color: var(--success); font-weight: 600;">Best Case (Top 10%)</td>
+                          <td id="repSimBestGrowth">15%</td>
+                          <td id="repSimBestChurn">2.1%</td>
+                          <td id="repSimBestCac">$45</td>
+                          <td id="repSimBestRevenue">$185k</td>
+                          <td id="repSimBestBurn">$1.8k</td>
+                        </tr>
+                        <tr id="repSimExpectedRow">
+                          <td style="color: var(--primary); font-weight: 600;">Expected Case (Target)</td>
+                          <td id="repSimExpectedGrowth">8%</td>
+                          <td id="repSimExpectedChurn">4.2%</td>
+                          <td id="repSimExpectedCac">$75</td>
+                          <td id="repSimExpectedRevenue">$94k</td>
+                          <td id="repSimExpectedBurn">$2.2k</td>
+                        </tr>
+                        <tr id="repSimWorstRow">
+                          <td style="color: var(--danger); font-weight: 600;">Worst Case (Downside)</td>
+                          <td id="repSimWorstGrowth">2%</td>
+                          <td id="repSimWorstChurn">9.8%</td>
+                          <td id="repSimWorstCac">$160</td>
+                          <td id="repSimWorstRevenue">$28k</td>
+                          <td id="repSimWorstBurn">$2.5k</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Pricing recommendation & projections sliders -->
+                <div class="grid-2">
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01); display: flex; flex-direction: column; gap: 12px;">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-hand-holding-dollar"></i> Pricing Recommendations</h3>
+                    <p id="repPricingSuggestions" style="font-size: 0.9rem; color: #fff;"></p>
+                    <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: auto;">Pricing should prioritize recurring value metrics (e.g. contact records, active monitoring targets) to establish negative churn attributes.</p>
+                  </div>
+
+                  <div class="glass-card calc-widget">
+                    <h3 class="card-title" style="font-size: 1rem; margin-bottom: 16px;"><i class="fa-solid fa-calculator"></i> Custom Revenue Projections</h3>
+                    <div class="slider-group">
+                      <div class="slider-label">
+                        <span>Average Monthly Plan Price (ACV)</span>
+                        <span class="slider-val" id="calcPriceVal">$49</span>
+                      </div>
+                      <input type="range" id="calcPriceSlider" class="range-slider" min="9" max="299" step="5" value="49" oninput="ui.updateRevenueCalculator()">
+                    </div>
+                    <div class="slider-group">
+                      <div class="slider-label">
+                        <span>Target Customers Count</span>
+                        <span class="slider-val" id="calcCustomersVal">100</span>
+                      </div>
+                      <input type="range" id="calcCustomersSlider" class="range-slider" min="10" max="2000" step="10" value="100" oninput="ui.updateRevenueCalculator()">
+                    </div>
+
+                    <div style="background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 12px; margin-top: 16px; border: 1px solid var(--border-glass);">
+                      <div class="projection-box">
+                        <span>Estimated MRR:</span>
+                        <span id="calcResultMrr" style="color: var(--success); font-size: 1.1rem;">$4,900</span>
+                      </div>
+                      <div class="projection-box">
+                        <span>Estimated ARR:</span>
+                        <span id="calcResultArr" style="color: var(--primary); font-size: 1.1rem;">$58,800</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 5: MVP & GTM -->
+              <div class="report-section" id="rep-sec-mvp">
+                <!-- Distribution difficulty scorecard -->
+                <div class="glass-card mb-24" style="background: rgba(255,255,255,0.01);">
+                  <h3 class="card-title"><i class="fa-solid fa-route"></i> Distribution Audits</h3>
+                  <div class="grid-3" style="gap: 16px; margin-bottom: 16px;">
+                    <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
+                      <span style="font-size: 0.75rem; color: var(--text-dim); display: block;">Distribution Difficulty Score</span>
+                      <strong id="repDistDiffVal" style="font-size: 1.25rem; color: #fff;">5/10</strong>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
+                      <span style="font-size: 0.75rem; color: var(--text-dim); display: block;">Acquisition friction</span>
+                      <span id="repDistDifficulty" class="tag-badge tag-primary" style="margin-top: 4px; display: inline-block;">Medium</span>
+                    </div>
+                  </div>
+                  <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Recommended Launch Channels:</h4>
+                  <ul class="feature-list" id="repGtmChannelsList" style="margin-top: 0;">
+                    <!-- Filled dynamically -->
+                  </ul>
+                </div>
+
+                <div class="grid-2-1 gap-24">
+                  <!-- MVP Roadmap -->
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-road"></i> MVP Feature Roadmap</h3>
+                    <div class="roadmap-timeline" id="repMvpRoadmapTimeline">
+                      <!-- Filled by JS -->
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                      <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-laptop-code"></i> Technical Stack Recommendation</h3>
+                      <div id="repTechStack" style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted); font-family: var(--font-mono); white-space: pre-line;">
+                        <!-- Filled by JS -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 6: Fit & Compliance -->
+              <div class="report-section" id="rep-sec-fit">
+                <div class="grid-2 mb-24">
+                  <!-- Founder-Market Fit Agent upgraded -->
+                  <div class="glass-card" style="display: flex; flex-direction: column; gap: 12px;">
+                    <h3 class="card-title" style="font-size: 1.1rem;"><i class="fa-solid fa-people-arrows"></i> Founder-Market Fit Analysis</h3>
+                    <div>
+                      <span style="color: var(--text-dim); display:block; font-size: 0.8rem; margin-bottom: 4px;">Founder Fit Score:</span>
+                      <span id="repFounderFitScoreBadge" class="tag-badge tag-success" style="font-size: 0.9rem;">8/10</span>
+                    </div>
+                    
+                    <div style="font-size: 0.85rem; margin-top: 8px;">
+                      <p style="color: var(--success); margin-bottom: 6px;"><strong>Competitive Advantages:</strong></p>
+                      <ul class="feature-list" id="repFounderFitAdvantages" style="margin-bottom: 12px; margin-top: 0;"></ul>
+
+                      <p style="color: var(--warning); margin-bottom: 6px;"><strong>Founder Profile Weaknesses:</strong></p>
+                      <ul class="feature-list" id="repFounderFitWeaknesses" style="margin-top: 0;"></ul>
+                    </div>
+                  </div>
+
+                  <!-- Security & Compliance Agent -->
+                  <div class="glass-card" style="display: flex; flex-direction: column; gap: 12px;">
+                    <h3 class="card-title" style="font-size: 1.1rem;"><i class="fa-solid fa-lock"></i> Security & Compliance Audit</h3>
+                    <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px;">
+                      <div><span style="color: var(--text-dim);">Compliance Complexity:</span> <strong id="repComplianceScoreVal" style="color: #fff;">5/10</strong></div>
+                      <div><span style="color: var(--text-dim);">Enterprise Readiness Score:</span> <strong id="repComplianceReadiness" style="color: var(--success);">7/10</strong></div>
+                    </div>
+                    <p id="repComplianceAssessment" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;"></p>
+                    
+                    <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono); margin-top: auto;">
+                      COMPLIANCE TRIGGERS:<br>
+                      - GDPR: Contact records validation logic<br>
+                      - SOC2: OAuth token security and vault encryption
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid-2 mb-24">
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-check-double" style="color: var(--success);"></i> Market Advantages</h3>
+                    <ul class="feature-list" id="repAdvantagesList"></ul>
+                  </div>
+                  <div class="glass-card" style="background: rgba(255, 255, 255, 0.01);">
+                    <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-triangle-exclamation" style="color: var(--danger);"></i> Market Risks</h3>
+                    <ul class="feature-list" id="repRisksList"></ul>
+                  </div>
+                </div>
+
+                <div class="glass-card mb-24" style="background: rgba(255, 255, 255, 0.01);">
+                  <h3 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-users-viewfinder"></i> Target Audience & ICPs</h3>
+                  <div class="grid-2" id="repCustomerPersonasContainer"></div>
+                </div>
+              </div>
+
+              <!-- Evidence Sources Footer -->
+              <div style="border-top: 1px solid var(--border-glass); padding-top: 16px; margin-top: 24px; font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono); display: flex; justify-content: space-between;">
+                <span>ANALYZED BY: UPGRADED_DECISION_ENGINE</span>
+                <span>SOURCES: <span id="repEvidenceSourcesText">Reddit, Product Hunt, Indie Hackers, Twitter</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 4: Founder Profile Editor -->
+      <section id="view-profile" class="view-container">
+        <div class="mb-24">
+          <h2 class="section-title">
+            <i class="fa-solid fa-sliders"></i> Founder Profile Console
+          </h2>
+          <p>Configure your development skill set, launch assets, and domain knowledge. Our multi-agent engine uses these settings to calculate your personalized **Founder Fit Score** and update build recommendations.</p>
+        </div>
+
+        <div class="grid-2-1 gap-24">
+          <!-- Left: Skills configure -->
+          <div class="glass-card">
+            <h3 class="card-title" style="border-bottom: 1px solid var(--border-glass); padding-bottom: 8px; margin-bottom: 24px;">
+              <i class="fa-solid fa-graduation-cap"></i> Skill & Capability Matrix
+            </h3>
+            
+            <div class="skills-sliders-grid">
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Software Development / Engineering</span>
+                  <span class="slider-val" id="profCodingVal">4/5</span>
+                </div>
+                <input type="range" id="profCodingSlider" class="range-slider" min="1" max="5" value="4" oninput="app.updateFounderProfileFromSliders()">
+              </div>
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Product Design / UI-UX</span>
+                  <span class="slider-val" id="profDesignVal">3/5</span>
+                </div>
+                <input type="range" id="profDesignSlider" class="range-slider" min="1" max="5" value="3" oninput="app.updateFounderProfileFromSliders()">
+              </div>
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Marketing & SEO</span>
+                  <span class="slider-val" id="profMarketingVal">3/5</span>
+                </div>
+                <input type="range" id="profMarketingSlider" class="range-slider" min="1" max="5" value="3" oninput="app.updateFounderProfileFromSliders()">
+              </div>
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Direct Sales & Outreach</span>
+                  <span class="slider-val" id="profSalesVal">2/5</span>
+                </div>
+                <input type="range" id="profSalesSlider" class="range-slider" min="1" max="5" value="2" oninput="app.updateFounderProfileFromSliders()">
+              </div>
+            </div>
+
+            <h3 class="card-title mt-24" style="border-bottom: 1px solid var(--border-glass); padding-bottom: 8px; margin-bottom: 24px;">
+              <i class="fa-solid fa-wallet"></i> Capital & Availability Details
+            </h3>
+            
+            <div class="skills-sliders-grid">
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Weekly Dedicated Time</span>
+                  <span class="slider-val" id="profHoursVal">20 hrs</span>
+                </div>
+                <input type="range" id="profHoursSlider" class="range-slider" min="5" max="80" step="5" value="20" oninput="app.updateFounderProfileFromSliders()">
+              </div>
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Working Launch Budget</span>
+                  <span class="slider-val" id="profBudgetVal">$1,000</span>
+                </div>
+                <input type="range" id="profBudgetSlider" class="range-slider" min="0" max="25000" step="500" value="1000" oninput="app.updateFounderProfileFromSliders()">
+              </div>
+            </div>
+
+            <div class="slider-group mt-16">
+              <label for="profNameInput" style="display: block; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-muted);">Founder Name / Handle:</label>
+              <input type="text" id="profNameInput" class="search-input" value="Solo Builder" style="border: 1px solid var(--border-glass); border-radius: 8px; padding: 10px;" oninput="app.updateFounderName(this.value)">
+            </div>
+          </div>
+
+          <!-- Right: Profile Status Card -->
+          <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 class="card-title" style="border-bottom: 1px solid var(--border-glass); padding-bottom: 8px; margin-bottom: 16px;">
+                <i class="fa-solid fa-shield-halved"></i> Profile Summary
+              </h3>
+              
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                <div class="avatar" style="width: 56px; height: 56px; font-size: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #000;" id="profileAvatarBig">SB</div>
+                <div>
+                  <h4 style="font-family: var(--font-display); font-size: 1.2rem;" id="profSummaryName">Solo Builder</h4>
+                  <span class="tag-badge tag-primary" id="profClassification">Full-Stack Technical</span>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-dim);">Dev Strength:</span>
+                  <span id="profSumCoding">Strong (4/5)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-dim);">GTM Strength:</span>
+                  <span id="profSumGtm">Moderate (3/5)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-dim);">Weekly Bandwidth:</span>
+                  <span id="profSumHours">20 Hours / Week</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-dim);">Financial Buffer:</span>
+                  <span id="profSumBudget">$1,000 Bootstrapping</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: rgba(0, 242, 254, 0.05); border: 1px solid var(--border-active); border-radius: 8px; padding: 16px; margin-top: 24px;">
+              <h4 style="font-size: 0.9rem; font-family: var(--font-display); color: var(--primary); margin-bottom: 8px;"><i class="fa-solid fa-arrows-spin"></i> Real-time Evaluation</h4>
+              <p style="font-size: 0.8rem; line-height: 1.4;">Changes made here will automatically modify the matching calculations in reports on the fly.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="core.js"></script>
+  <script src="research.js"></script>
+  <script src="agents.js"></script>
+  <script src="ui.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
